@@ -9,32 +9,59 @@ gem 'rails', '~> 6.1.1'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
+# Devise is a flexible authentication solution for Rails based on Warden.
+gem 'devise'
+# Is a devise extension which uses JWT tokens for user authentication.
+gem 'devise-jwt', '~> 0.7.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS),
+# making cross-origin AJAX possible
 # gem 'rack-cors'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  #  Brings the RSpec testing framework to Ruby on Rails as a drop-in
+  # alternative to its default testing framework, Minitest.
+  gem 'rspec-rails', '~> 4.0.2'
+  # factory_bot_rails provides Rails integration for factory_bot.
+  gem 'factory_bot_rails'
+  # ffaker is a rewrite of faker.
+  gem 'ffaker'
+  # SimpleCov is a code coverage analysis tool for Ruby.
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
+  # Add a comment summarizing the current schema to the top or bottom
+  gem 'annotate'
+  # Great Ruby dubugging companion: pretty print Ruby objects to visualize their
+  # structure. Supports custom object formatting via plugins
+  gem 'awesome_print', require: 'ap'
+  # Brakeman is a static analysis tool which checks Ruby on Rails applications
+  # for security vulnerabilities.
+  gem 'brakeman'
+  # Autoload dotenv in Rails.
+  gem 'dotenv-rails', groups: %i[development test]
+  # Automatically checks Ruby code style with RuboCop when files are modified.
+  gem 'guard-rubocop'
+  # When mail is sent from your application, Letter Opener will open a preview
+  # in the browser instead of sending.
+  gem "letter_opener", :group => :development
+  # Listens to file modifications and notifies you about the changes.
   gem 'listen', '~> 3.3'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Use Pry as your rails console
+  gem 'pry-rails', group: :development
+  # A RuboCop extension focused on enforcing Rails best practices and coding
+  # conventions.
+  gem 'rubocop-rails', require: false
+  # RSpec-specific analysis for your projects, as an extension to RuboCop.
+  gem 'rubocop-rspec', require: false
+  # Making tests easy on the fingers and eyes
+  gem 'shoulda-matchers'
+  # Spring speeds up development by keeping your application running in the
+  # background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Access an interactive console on exception pages or by calling 'console'
+  # anywhere in the code.
+  gem 'web-console', '>= 4.1.0'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
