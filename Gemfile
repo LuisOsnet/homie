@@ -25,8 +25,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.2'
   # factory_bot_rails provides Rails integration for factory_bot.
   gem 'factory_bot_rails'
-  # ffaker is a rewrite of faker.
-  gem 'ffaker'
+  # A library for generating fake data.
+  gem 'faker'
   # SimpleCov is a code coverage analysis tool for Ruby.
   gem 'simplecov', require: false, group: :test
 end
