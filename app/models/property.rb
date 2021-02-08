@@ -14,4 +14,6 @@
 #
 class Property < ApplicationRecord
   enum status: %i[published rented removed]
+
+  scope :status, ->(value) { where(status: value) }
 end

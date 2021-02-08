@@ -15,7 +15,7 @@
 #  updated_at  :datetime         not null
 #
 FactoryBot.define do
-  factory :published_properties, class: Property do
+  factory :property do
     name { Faker::Company.name }
     description { Faker::Lorem.sentence }
     price { Faker::Commerce.price }
@@ -24,7 +24,16 @@ FactoryBot.define do
     owner_phone { Faker::PhoneNumber.phone_number_with_country_code }
   end
 
-  factory :rented_roperties, class: Property do
+  factory :published_properties, class: 'Property' do
+    name { Faker::Company.name }
+    description { Faker::Lorem.sentence }
+    price { Faker::Commerce.price }
+    status { 0 }
+    owner_name { Faker::Name.name }
+    owner_phone { Faker::PhoneNumber.phone_number_with_country_code }
+  end
+
+  factory :rented_roperties, class: 'Property' do
     name { Faker::Company.name }
     description { Faker::Lorem.sentence }
     price { Faker::Commerce.price }
@@ -33,7 +42,7 @@ FactoryBot.define do
     owner_phone { Faker::PhoneNumber.phone_number_with_country_code }
   end
 
-  factory :removed_roperties, class: Property do
+  factory :removed_roperties, class: 'Property' do
     name { Faker::Company.name }
     description { Faker::Lorem.sentence }
     price { Faker::Commerce.price }

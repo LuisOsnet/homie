@@ -4,6 +4,7 @@ require 'pry'
 RSpec.describe 'Api::V1::Properties', type: :request do
   let(:user) { create(:user) }
   let(:login_url) { '/login' }
+  let(:property) { create(:property) }
   let(:published_properties) { create(:published_properties) }
   let(:rented_roperties) { create(:rented_roperties) }
   let(:removed_roperties) { create(:removed_roperties) }
@@ -44,11 +45,6 @@ RSpec.describe 'Api::V1::Properties', type: :request do
   end
 
   describe 'POST /create' do
-    it 'returns http success' do
-      get '/api/v1/properties/', headers: { Authorization: @token }
-      expect(response).to have_http_status(:success)
-    end
-
     it 'returns http created success' do
       post '/api/v1/properties/', params: {
         property: {
@@ -79,15 +75,10 @@ RSpec.describe 'Api::V1::Properties', type: :request do
   end
 
   describe 'UPDATE /put' do
-    it 'returns http success' do
-      get '/api/v1/properties/', headers: { Authorization: @token }
-      expect(response).to have_http_status(:success)
-    end
-
     it 'returns http code 200' do
       put "/api/v1/properties/#{published_properties.id}", params: {
         property: {
-          name: "Updated name"
+          name: 'Updated name'
         }
       }, headers: { Authorization: @token }
       expect(response.code.to_i).to be(200)
@@ -96,7 +87,7 @@ RSpec.describe 'Api::V1::Properties', type: :request do
     it 'updated a property' do
       put "/api/v1/properties/#{published_properties.id}", params: {
         property: {
-          name: "Updated name"
+          name: 'Updated name'
         }
       }, headers: { Authorization: @token }
       expect(JSON.parse(response.body)['property']['name']).to eq('Updated name')
@@ -106,8 +97,20 @@ RSpec.describe 'Api::V1::Properties', type: :request do
   describe 'DELETE /delete' do
     it 'returns http deleted' do
       delete "/api/v1/properties/#{published_properties.id}",
-          headers: { Authorization: @token }
+             headers: { Authorization: @token }
       expect(response.code.to_i).to be(204)
+    end
+  end
+
+  describe 'POST /availables_properties' do
+    it 'returns http created success' do
+      post '/api/v1/properties/available', params: {
+        property: {
+          status: 'published',
+          attributes: %w[name description]
+        }
+      }, headers: { Authorization: @token }
+      expect(response).to have_http_status(:success)
     end
   end
 end
