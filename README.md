@@ -32,7 +32,7 @@ rails s
 Now after run the server we'll use Postman to retrieve data and you can download the postman collection [here](https://drive.google.com/file/d/1WSXlxT_dVarDfkeQtHcB4Mwpux7t0lwv/view?usp=sharing).
 
 ### Authentication
-If you run correctly the seed command you can use whatever of this users.
+If you run correctly the seed command you can use whatever of this users to login.
 
 - Admin: Manage all
 ```
@@ -50,6 +50,19 @@ password: valid_password
 email: visitor@example.com,
 password: valid_password
 ```
+
+In the previous request (login) we expect to receive a Status: 200, and all the information from the database for that particular users.
+
+<div style="text-align:center"><img src="https://luisosnet.com/wp-content/uploads/2021/02/login.png" /></div>
+
+Now you need to copy the authorization token that you can find it in the headers section or you could create a global variable too.
+
+<div style="text-align:center"><img src="https://luisosnet.com/wp-content/uploads/2021/02/token.png" /></div>
+
+After set up the previous token you can retrieve the correct data from any endpoint.
+
+<div style="text-align:center"><img src="https://luisosnet.com/wp-content/uploads/2021/02/properties-1.png" /></div>
+
 ## Authors
 
 * [Luis Osnet](https://luisosnet.com)
