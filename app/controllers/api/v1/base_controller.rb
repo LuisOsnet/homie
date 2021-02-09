@@ -11,6 +11,10 @@ module Api
       rescue_from 'ActionController::ParameterMissing',
                   with: :parameters_missing
       rescue_from 'ActiveRecord::RecordNotFound', with: :not_found
+      rescue_from CanCan::AccessDenied do |exception|
+        response_error error: exception.message
+      end
+
       # This method will show code 200 and the specific json when we'll
       # retrieve records.
       def response_success(data = {})
@@ -39,56 +43,55 @@ module Api
 
       # Response error message if something is wrong
       def response_error(args = {})
-        opts = { code: 418 }.merge(args)
-        opts[:message] ||= t("api.http_response.errors.error_#{opts[:code]}")
-
+        opts = { code: 418 }
+        opts[:message] ||= args
         render status: opts[:code], json: {
-          error: opts[:message]
+          message: opts[:message]
         }
       end
 
       private
 
-      # Retrives autorization header from the request
-      def auth_header
-        request.headers['Authorization']
-      end
+        # Retrives autorization header from the request
+        def auth_header
+          request.headers['Authorization']
+        end
 
-      # This method decode bearer token and return just "JTI" token
-      def decoded_token
-        if auth_header
-          token = auth_header.split(' ')[1]
-          begin
-            token = JWT.decode token, Rails.application.credentials.jwt_secret,
-                                true,
-                                { algorithm: 'HS256' }
-            token&.first['jti']
-          rescue JWT::DecodeError
-            nil
+        # This method decode bearer token and return just "JTI" token
+        def decoded_token
+          if auth_header
+            token = auth_header.split(' ')[1]
+            begin
+              token = JWT.decode token, Rails.application.credentials.jwt_secret,
+                                 true,
+                                 { algorithm: 'HS256' }
+              token&.first['jti']
+            rescue JWT::DecodeError
+              nil
+            end
           end
         end
-      end
 
-      # Retrieve the session owner base on "JTI" token
-      def logged_user
-        if decoded_token
-          user_id = decoded_token[0].to_i
-          @user = User.find user_id
+        # Retrieve the session owner base on "JTI" token
+        def logged_user
+          if decoded_token
+            user_id = decoded_token[0].to_i
+            @user = User.find user_id
+          end
         end
-      end
 
-      # It retrieves boolean answer to know if user is logged
-      def logged_in?
-        !!logged_user
-      end
-
-      def authenticate_user!
-        if user_signed_in?
-          @user = current_user
-        else
-          head :unauthorized
+        # It retrieves boolean answer to know if user is logged
+        def logged_in?
+          !!logged_user
         end
-      end
+
+        def authenticate_user!
+          if user_signed_in?
+            @user = current_user
+          else
+            head :unauthorized
+          end
+        end
     end
   end
 end

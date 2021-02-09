@@ -26,13 +26,20 @@ class PropertiesService
     retrieve_property.destroy
   end
 
+  def published
+    Property&.status(@params['status'])&.select(
+      :id,
+      @params['attributes'].map { |key| key&.to_sym }
+    )
+  end
+
   private
 
-  def list_properties
-    Property.all
-  end
+    def list_properties
+      Property.all
+    end
 
-  def retrieve_property
-    Property.find(@params[:id])
-  end
+    def retrieve_property
+      Property.find(@params[:id])
+    end
 end

@@ -25,4 +25,16 @@ FactoryBot.define do
     email { Faker::Internet.email } #=> "kirsten.greenholt@corkeryfisher.info"
     password { 'sJcwP0WmTH' }
   end
+
+  factory :admin, class: User do
+    name { Faker::Name.name } #=> "Christophe Bartell"
+    email { Faker::Internet.email } #=> "kirsten.greenholt@corkeryfisher.info"
+    password { 'sJcwP0WmTH' }
+  end
+
+  factory :partner, class: User do
+    name { Faker::Name.name } #=> "Christophe Bartell"
+    email { Faker::Internet.email } #=> "kirsten.greenholt@corkeryfisher.info"
+    password { 'sJcwP0WmTH' }
+  end
 end

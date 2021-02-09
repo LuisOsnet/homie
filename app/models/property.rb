@@ -13,5 +13,8 @@
 #  updated_at  :datetime         not null
 #
 class Property < ApplicationRecord
+  resourcify
   enum status: %i[published rented removed]
+
+  scope :status, ->(value) { where(status: value) }
 end

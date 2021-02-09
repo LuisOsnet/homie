@@ -18,6 +18,12 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS),
 # making cross-origin AJAX possible
 # gem 'rack-cors'
+# Roles library without any authorization enforcement supporting scope on
+# resource object.
+gem 'rolify'
+# CanCan is an authorization library for Ruby on Rails which restricts what
+# resources a given user is allowed to access
+gem 'cancancan'
 
 group :development, :test do
   #  Brings the RSpec testing framework to Ruby on Rails as a drop-in

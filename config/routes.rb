@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :properties
+      resources :properties do
+        post :availables_properties, path: 'available', on: :collection
+      end
     end
   end
 end
