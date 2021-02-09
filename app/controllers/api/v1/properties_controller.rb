@@ -3,6 +3,8 @@
 module Api
   module V1
     class PropertiesController < Api::V1::BaseController
+      authorize_resource class: 'Property'
+      
       def index
         response = properties_service({}).list
         if response
