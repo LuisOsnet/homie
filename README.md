@@ -11,6 +11,11 @@ This is a little project to show some skills.
 - PostgreSQL 13.1
 ### Installing
 
+Generate a secret key running the next command and then copy and paste the secret key into the `.env` file.
+```
+rails secret
+```
+
 It will easy just need to run the next commands after downloaded the project.
 
 ```
